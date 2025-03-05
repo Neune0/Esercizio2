@@ -13,7 +13,7 @@ public class Biblioteca {
 
     
     public void elencoLibri() {
-        System.out.println("Elenco libri:");
+        System.out.println("Elenco libri disponibili:");
         for (Libro libro : libri_disponibili) {
             System.out.println("- " + libro.getTitolo() + " di " + libro.getAutore() + " (" + libro.getAnno() + ")");
         }
@@ -27,7 +27,12 @@ public class Biblioteca {
     }
 
     public void removeLibro(Libro libro) {
-        this.libri_disponibili.remove(libro);
+        if (this.libri_disponibili.contains(libro)) {
+            this.libri_disponibili.remove(libro);
+            System.out.println("Rimozione avvenuta con successo.");
+        } else {
+            System.out.println("Errore: Libro non trovato.");
+        }
     }
 
     public void addLibro(Libro libro) {
@@ -57,5 +62,39 @@ public class Biblioteca {
         }
         System.out.println("Errore: Il libro '" + libro_che_restituisco + "' non è stato prestato.");
     }
+
+    public void elencoLibricontati() {
+        if (libri_disponibili.isEmpty()) {
+            System.out.println("Nessun libro disponibile.");
+            return;
+        }
+    
+        System.out.println("Elenco libri disponibili:");
+    
+        ArrayList<Libro> libriContati = new ArrayList<>();
+    
+        for (Libro libro : libri_disponibili) {
+            boolean trovato = false;
+    
+            for (Libro l : libriContati) {
+                if (libro.equals(l)) {
+                    trovato = true;
+                    break;
+                }
+            }
+    
+            if (!trovato) {
+                int copie = 0;
+                for (Libro l : libri_disponibili) {
+                    if (libro.equals(l)) {
+                        copie++;
+                    }
+                }
+                libriContati.add(libro);
+                System.out.println("- " + libro.getTitolo() + " di " + libro.getAutore() + " (" + libro.getAnno() + ") | Copie disponibili: " + copie);
+            }
+        }
+    }
+
 
 }
