@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+
 public class Esercizio2 {
     static Biblioteca biblioteca = new Biblioteca();
 
@@ -67,7 +68,7 @@ public class Esercizio2 {
             try {
                 numero = Integer.parseInt(scanner.nextLine());
                 return numero;
-            } catch (NumberFormatException e) {
+            } catch (Exception e) {
                 System.out.println("Inserisci un numero intero");
             }
         }

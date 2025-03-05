@@ -1,5 +1,6 @@
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
+import java.sql.*;
 
 public class Biblioteca {
 
@@ -10,7 +11,6 @@ public class Biblioteca {
         libri_in_prestito = new ArrayList<Libro>();
         libri_disponibili = new ArrayList<Libro>();
     }
-
     
     public void elencoLibri() {
         System.out.println("Elenco libri disponibili:");
