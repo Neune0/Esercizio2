@@ -20,57 +20,36 @@ public class Esercizio2 {
             System.out.println("7. Elenco libri disponibili contati");
             System.out.println("0. Esci");
             System.out.println("Scegli un'opzione: ");
-            scelta = scanner.nextInt();
+            scelta = leggiIntero(scanner);
 
-            switch(scelta){
+            switch (scelta) {
                 case 1:
-                    System.out.println("Inserisci il titolo del libro: ");
-                    String titolo = scanner.next();
-                    System.out.println("Inserisci l'autore del libro: ");
-                    String autore = scanner.next();
-                    System.out.println("Inserisci l'anno del libro: ");
-                    int anno = scanner.nextInt();
-                    biblioteca.addLibro(new Libro(titolo, autore, anno));
+                    biblioteca.addLibro(leggiLibro(scanner, " da aggiungere"));
                     System.out.println();
                     break;
                 case 2:
-                    System.out.println("Inserisci il titolo del libro da rimuovere: ");
-                    String titoloRimuovi = scanner.next();
-                    System.out.println("Inserisci l'autore del libro da rimuovere: ");
-                    String autoreRimuovi = scanner.next();
-                    System.out.println("Inserisci l'anno del libro da rimuovere: ");
-                    int annoRimuovi = scanner.nextInt();
-                    biblioteca.removeLibro(new Libro(titoloRimuovi, autoreRimuovi, annoRimuovi));
+                    biblioteca.removeLibro(leggiLibro(scanner, " da rimuovere"));
                     System.out.println();
                     break;
                 case 3:
-                    System.out.println("Inserisci il titolo del libro da prestare: ");
-                    String titoloPresta = scanner.next();
-                    System.out.println("Inserisci l'autore del libro da prestare: ");
-                    String autorePresta = scanner.next();
-                    System.out.println("Inserisci l'anno del libro da prestare: ");
-                    int annoPresta = scanner.nextInt();
-                    biblioteca.prestaLibro(new Libro(titoloPresta, autorePresta, annoPresta));
+                    biblioteca.prestaLibro(leggiLibro(scanner, " da prestare"));
                     System.out.println();
                     break;
                 case 4:
-                    System.out.println("Inserisci il titolo del libro da restituire: ");
-                    String titoloRestituisci = scanner.next();
-                    System.out.println("Inserisci l'autore del libro da restituire: ");
-                    String autoreRestituisci = scanner.next();
-                    System.out.println("Inserisci l'anno del libro da restituire: ");
-                    int annoRestituisci = scanner.nextInt();
-                    biblioteca.restituisciLibro(new Libro(titoloRestituisci, autoreRestituisci, annoRestituisci));
+                    biblioteca.restituisciLibro(leggiLibro(scanner, " da restituire"));
                     System.out.println();
                     break;
                 case 5:
                     biblioteca.elencoLibri();
+                    System.out.println();
                     break;
                 case 6:
                     biblioteca.elencoLibriInPrestito();
+                    System.out.println();
                     break;
                 case 7:
                     biblioteca.elencoLibricontati();
+                    System.out.println();
                     break;
                 case 0:
                     System.out.println("Arrivederci!");
@@ -82,4 +61,42 @@ public class Esercizio2 {
 
     }
 
+    private static int leggiIntero(Scanner scanner) {
+        int numero;
+        while (true) {
+            try {
+                numero = Integer.parseInt(scanner.nextLine());
+                return numero;
+            } catch (NumberFormatException e) {
+                System.out.println("Inserisci un numero intero");
+            }
+        }
+    }
+
+    private static Libro leggiLibro(Scanner scanner, String messaggio){
+        System.out.println("\nInserisci i dettagli del libro" + messaggio+ ":");
+
+        System.out.println("Titolo: ");
+        String titolo = scanner.nextLine().trim();
+        while(titolo.isEmpty()){
+            System.out.println("Inserisci un titolo valido: ");
+            titolo = scanner.nextLine().trim();
+        }
+
+        System.out.println("Autore: ");
+        String autore = scanner.nextLine().trim();
+        while(autore.isEmpty()){
+            System.out.println("Inserisci un autore valido: ");
+            autore = scanner.nextLine().trim();
+        }   
+
+        System.out.println("Anno: ");
+        int anno = leggiIntero(scanner);
+        while(anno < 0){
+            System.out.println("Inserisci un anno valido: ");
+            anno = leggiIntero(scanner);
+        }
+
+        return new Libro(titolo, autore, anno);
+    }
 }
